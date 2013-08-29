@@ -32,12 +32,17 @@ describe TodosController do
     context "when I post with a valid todo" do
       before {
         post todos_path, { todo: {
-            description: "Awesome Thing to Do"
+            description: "Awesome Thing to Do",
+            tags: "tag1, tag2"
           }
         }
       }
       it "creates a post in the dayterbasers" do
         Todo.last.description.should eq "Awesome Thing to Do"
+      end
+      it "save the tags as well" do
+        Todo.last.tags.first.should eq "tag1"
+        Todo.last.tags.last.should eq "tag2"
       end
 
       it "redirects to the index" do
